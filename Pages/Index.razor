@@ -1,0 +1,27 @@
+﻿@page "/"
+
+@inject IJSRuntime JS
+
+<PageTitle>Index</PageTitle>
+
+<div id="container">
+    <button id="jsbutton">Enter fullscreen javascript</button>
+    <button @onclick="EnterFullscreen">Enter fullscreen blazor</button>
+</div>
+
+@code {
+    private IJSObjectReference? module;
+
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "/Pages/Index.razor.js");
+            await module.InvokeVoidAsync("init");
+        }
+    }
+
+    private void EnterFullscreen() {
+        module!.InvokeVoidAsync("enterFullscreen");
+    }
+}
