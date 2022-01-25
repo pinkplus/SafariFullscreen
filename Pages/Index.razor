@@ -21,7 +21,7 @@
         }
     }
 
-    private void EnterFullscreen() {
-        module!.InvokeVoidAsync("enterFullscreen");
+    private async Task EnterFullscreen() {
+        await module!.InvokeVoidAsync("enterFullscreen");
     }
 }
